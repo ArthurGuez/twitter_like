@@ -6,11 +6,12 @@ const homeController = require('../controllers/home');
 
 // Middlewares
 const router = express.Router();
+const checkAuth = require('../server');
 
 // Routes
-router.get('/home', homeController.findAll);
+router.get('/home', checkAuth.checkAuthenticated, homeController.findAll);
 
-router.get('/:username', homeController.findProfile);
+router.get('/:username', checkAuth.checkAuthenticated, homeController.findProfile);
 
 router.get('*', homeController.error);
 

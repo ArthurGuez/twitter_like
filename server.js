@@ -40,6 +40,21 @@ app.use(flash());
 app.use(passport.initialize()),
 app.use(passport.session());
 
+exports.checkAuthenticated = (req, res, next) => {
+    console.log("working")
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/login');
+}
+
+exports.checkNotAuthenticated = (req, res, next) => {
+    console.log("working bis")
+    if (!req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/home');
+}
 
 // Routes
 const loginRouter = require("./routes/login");

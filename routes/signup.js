@@ -6,9 +6,10 @@ const signUpController = require('../controllers/signup');
 
 // Middlewares
 const router = express.Router();
+const checkAuth = require('../server');
 
 // Routes
-router.get('/signup', signUpController.getPage);
+router.get('/signup', checkAuth.checkNotAuthenticated, signUpController.getPage);
 
 router.post('/signup', signUpController.signUp);
 

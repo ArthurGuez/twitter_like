@@ -7,9 +7,10 @@ const loginController = require('../controllers/login');
 
 // Middlewares
 const router = express.Router();
+const checkAuth = require('../server');
 
 // Routes
-router.get('/login', loginController.getPage);
+router.get('/login', checkAuth.checkNotAuthenticated, loginController.getPage);
 
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/home',

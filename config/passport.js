@@ -24,14 +24,17 @@ const initialize = (passport) => {
     }
 
     passport.use(new LocalStrategy({ usernameField: 'email' }, authenticateUser));
+
     passport.serializeUser((user, done) => {
         return done(null, user.id)
     })
+
     passport.deserializeUser((id, done) => {
         User.getUserById(id, (user) => {
         return done(null, user);
         });
     })
+
 }
 
 module.exports = initialize;
