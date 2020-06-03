@@ -1,0 +1,55 @@
+body {
+    background-color: rgb(21, 32, 43);
+    color: white;
+    font-family: 'Helvetica Neue';
+}
+
+main {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 20% 55% 25%;
+    grid-template-areas: 
+        "nav home suggestions";
+}
+
+nav {
+    grid-area: nav;
+    display: flex;
+}
+
+.home {
+    grid-area: home;
+    border: 0.5px solid grey;
+}
+
+.suggestions {
+    grid-area: suggestions;
+}
+
+.timeline__tweet {
+    border: 0.5px solid grey;
+    display: flex;
+
+    .timeline__avatar { 
+
+        img {
+            height: 50px;
+            width: auto;
+            border: 1px solid;
+            border-radius: 50%;
+        }
+    }
+
+    .timeline__post {
+        
+        .timeline__user {
+            display: flex;
+            
+            a {
+            text-decoration: none;
+            color: white;
+            }
+        }
+    }
+    
+}

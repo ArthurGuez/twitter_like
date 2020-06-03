@@ -1,0 +1,61 @@
+<main>
+
+<nav>
+    <ul>
+        <li>Logo Twitter</li>
+        <li>Home</li>
+        <li>Explore</li>
+        <li>Notifications</li>
+        <li>Messages</li>
+        <li>Bookmarks</li>
+        <li>Lists</li>
+        <li>Profile</li>
+        <li>More</li>
+        <li>Tweet</li>
+        <li>Mon Profil</li>
+    </ul>
+</nav>
+
+<section class="home">
+
+    <h1>Home</h1>
+    <h2>Hello {{ name }}</h2>
+    <div class="home__publish"></div>
+    <form action="/home" method="post">
+        <div>
+            <label for="tweet"></label>
+            <textarea name="tweet" id="tweet" maxlength="280" placeholder="What's  happening?" required></textarea>   
+        </div>
+        <button type="submit">Tweeter</button>
+    </form>
+
+    <div class="timeline">
+
+    {{#each tweet}}
+        <div class="timeline__tweet">
+
+            <div class="timeline__avatar">
+                <a href="/{{ username }}">
+                    <img src="../assets/images/default_avatar.png" alt="">
+                </a>
+            </div>
+            <div class="timeline__post">
+                <div class="timeline__user">
+                    <a href="/{{ username }}">@{{ username }}</a>&nbsp. {{ dateFromNow }}
+                </div>
+                <div class="timeline__content">{{ content }}</div>
+            </div>
+
+        </div>
+    {{/each}}
+
+    </div>
+
+</section>
+
+<div class="suggestions">
+
+</div>
+
+
+</main>
