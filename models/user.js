@@ -34,7 +34,7 @@ class User {
         })
     }
 
-    static getWhoToFollow (username, cb) {
+    static showWhoToFollow (username, cb) {
         db.query('SELECT * FROM users WHERE username != ?', [username], (err, rows) => {
             if (err) throw err;
             cb(rows.map((row) => new User(row)));
