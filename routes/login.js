@@ -12,6 +12,8 @@ const checkAuth = require('../server');
 // Routes
 router.get('/login', checkAuth.checkNotAuthenticated, loginController.getPage);
 
+router.get('*', loginController.error);
+
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/home',
     failureRedirect: '/login',

@@ -1,5 +1,5 @@
 let db = require('../config/db');
-let moment = require('../config/moment');
+let moment = require('../middleware/moment');
 
 class Tweet {
     constructor(row) {
@@ -22,8 +22,8 @@ class Tweet {
         return moment(this._row.date).fromNow();
     }
 
-    static create (content, username, cb) {
-        db.query('INSERT INTO tweets SET content = ?, username = ?, date = ?', [content, username, new Date()], (err, res) => {
+    static create (content, username, idUser, cb) {
+        db.query('INSERT INTO tweets SET content = ?, username = ?, date = ?, user_id = ?', [content, username, new Date(), idUser], (err, res) => {
             if (err) throw err;
             cb(res);
         })
@@ -37,11 +37,19 @@ class Tweet {
     }
 
     static findAll (cb) {
-        db.query('SELECT * FROM tweets', (err, rows) => {
+        db.query('SELECT * FROM tweets ORDER BY date DESC', (err, rows) => {
             if (err) throw err;
             cb(rows.map((row) => new Tweet(row)));
         })
     }
+
+    static findFollowing (following, cb) {        
+        db.query('SELECT * FROM tweets JOIN follow ON tweets.user_id = follow.followed_id WHERE follow.follower_id = ?', [following], (err, rows) => {
+            if (err) throw err;
+            cb(rows.map((row) => new Tweet(row)));
+        })
+    }
+
 }
 
 module.exports = Tweet;

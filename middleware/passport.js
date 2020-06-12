@@ -14,6 +14,7 @@ const initialize = (passport) => {
                     if (res) {
                         return done(null, user);
                     } else {
+                        console.log(err);
                         return done(null, false, { message: 'Password incorrect' });
                     }
                 })

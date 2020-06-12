@@ -17,7 +17,7 @@ const flash = require('connect-flash');
 const app = express();
 
 // Instanciation Passport
-const initializePassport = require('./config/passport');
+const initializePassport = require('./middleware/passport');
 initializePassport(passport);
 
 // Moteur de templates 
@@ -32,8 +32,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(session({
     secret: process.env.SESSION_SECRET,
-    cookie: { maxAge: 60000 },
-    resave: true,
+    cookie: { maxAge: null },
+    resave: false,
     saveUninitialized: true
 }));
 app.use(flash());
@@ -41,7 +41,6 @@ app.use(passport.initialize()),
 app.use(passport.session());
 
 exports.checkAuthenticated = (req, res, next) => {
-    console.log("working")
     if (req.isAuthenticated()) {
         return next();
     }
@@ -49,7 +48,6 @@ exports.checkAuthenticated = (req, res, next) => {
 }
 
 exports.checkNotAuthenticated = (req, res, next) => {
-    console.log("working bis")
     if (!req.isAuthenticated()) {
         return next();
     }

@@ -12,16 +12,17 @@
         <li>Profile</li>
         <li>More</li>
         <li>Tweet</li>
-        <li>Mon Profil</li>
+        <li><a href="/{{ username }}">Mon Profil</a></li>
+        <li><a href="/logout">Logout</a></li>
     </ul>
 </nav>
 
 <section class="home">
 
     <h1>Home</h1>
-    <h2>Hello {{ name }}</h2>
+    <h2>Hello {{ username }}</h2>
     <div class="home__publish"></div>
-    <form action="/home" method="post">
+    <form action="/home" method="POST">
         <div>
             <label for="tweet"></label>
             <textarea name="tweet" id="tweet" maxlength="280" placeholder="What's  happening?" required></textarea>   
@@ -54,6 +55,26 @@
 </section>
 
 <div class="suggestions">
+    <div>
+        <h2>Who to follow</h2>
+        {{#each users}}
+            <div>
+                <div class="suggestions__avatar">
+                    <a href="/{{ username }}">
+                        <img src="../assets/images/default_avatar.png" alt="">
+                    </a>
+                    <div class="timeline__user">
+                        <a href="/{{ username }}">@{{ username }}</a>
+                    </div>
+                    <div>
+                        <form action="/{{ id }}" method="POST">
+                            <button name="follow" value="follow">Follow</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
 
 </div>
 

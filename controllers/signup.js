@@ -8,10 +8,14 @@ exports.getPage = (req, res) => {
 exports.signUp = async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        User.create(req.body.username, req.body.email, hashedPassword, () => {
+        User.newUser(req.body.username, req.body.email, hashedPassword, () => {
             res.redirect('/login');
         })
     } catch {
         res.redirect('/register');
     }
 }
+
+exports.error = (req, res) => {
+    res.status(404).send('error');
+};
