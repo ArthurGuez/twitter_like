@@ -3,11 +3,11 @@ const User = require('../models/user');
 
 exports.loadHomePage = (req, res) => {
     Tweet.findFollowing(req.user.id, (tweet) => {
-        User.showWhoToFollow(req.user.username, (users) => {
+        User.showWhoToFollow(req.user.username, (user) => {
             res.render('home', { 
                 username: req.user.username,
                 tweet: tweet,
-                users: users,
+                user: user,
                 title: 'Home / Twitter' });
         });
     });
@@ -37,6 +37,12 @@ exports.newTweet = (req, res) => {
 exports.follow = (req, res) => {
     User.follow(req.user.id, req.params.id, () => {
         res.redirect('/home');
+    });
+};
+
+exports.doIFollow = (req, res) => {
+    User.doIFollow(req.user.id, req.body.id, () => {
+
     });
 };
 

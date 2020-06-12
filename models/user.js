@@ -20,15 +20,22 @@ class User {
         })
     }
 
-    static follow (idFollower, idFollowed, cb) {
-        db.query('INSERT INTO follow SET follower_id = ?, followed_id = ?', [idFollower, idFollowed], (err, res) => {
+    static follow (followerId, followedId, cb) {
+        db.query('INSERT INTO follow SET follower_id = ?, followed_id = ?', [followerId, followedId], (err, res) => {
             if (err) throw err;
             cb(res);
         })
     }
 
-    static unfollow (idFollower, idFollowed, cb) {
-        db.query('DELETE FROM follow WHERE follower_id = ?, followed_id = ?', [idFollower, idFollowed], (err, res) => {
+    static doIFollow (followerId, followedId, cb) {
+        db.query('SELECT * FROM follow WHERE follower_id = ?, followed_id = ?', [followerId, followedId], (err, res) => {
+            if (err) throw err;
+            cb(res);
+        })
+    }
+
+    static unfollow (followerId, followedId, cb) {
+        db.query('DELETE FROM follow WHERE follower_id = ?, followed_id = ?', [followerId, followedId], (err, res) => {
             if (err) throw err;
             cb(res);
         })
