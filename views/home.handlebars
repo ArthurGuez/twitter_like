@@ -66,11 +66,21 @@
                     <div class="timeline__user">
                         <a href="/{{ username }}">@{{ username }}</a>
                     </div>
+                    {{#if ../doIFollow}}
                     <div>
-                        <form action="/{{ id }}" method="POST">
-                            <button name="follow" value="follow">Follow</button>
+                        <form action="/unfollow" method="POST">
+                            <input type="hidden" name="unfollow" value={{ id }}>
+                            <button type="submit">Unfollow</button>
                         </form>
                     </div>
+                    {{else}}
+                    <div>
+                        <form action="/follow" method="POST">
+                            <input type="hidden" name="follow" value={{ id }}>
+                            <button type="submit">Follow</button>
+                        </form>
+                    </div>
+                    {{/if}}
                 </div>
             </div>
         {{/each}}

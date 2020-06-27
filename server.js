@@ -55,10 +55,12 @@ exports.checkNotAuthenticated = (req, res, next) => {
 }
 
 // Routes
+const startRouter = require("./routes/start");
 const loginRouter = require("./routes/login");
 const signUpRouter = require("./routes/signup");
 const homeRouter = require("./routes/home");
 
+app.use(startRouter);
 app.use(loginRouter);
 app.use(signUpRouter);
 app.use(homeRouter);

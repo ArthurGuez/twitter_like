@@ -9,6 +9,7 @@ const router = express.Router();
 const checkAuth = require('../server');
 
 // Routes
+
 router.get('/logout', homeController.logOut);
 
 router.get('/home', checkAuth.checkAuthenticated, homeController.loadHomePage);
@@ -19,7 +20,9 @@ router.get('*', homeController.error);
 
 router.post('/home', homeController.newTweet);
 
-router.post('/:id', homeController.follow);
+router.post('/follow', homeController.follow);
+
+router.post('/unfollow', homeController.unfollow);
 
 // Export du fichier
 module.exports = router;

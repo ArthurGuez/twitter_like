@@ -1,14 +1,18 @@
 const Tweet = require('../models/tweet');
 const User = require('../models/user');
+const Follow = require('../models/follow');
 
 exports.loadHomePage = (req, res) => {
     Tweet.findFollowing(req.user.id, (tweet) => {
         User.showWhoToFollow(req.user.username, (user) => {
-            res.render('home', { 
-                username: req.user.username,
-                tweet: tweet,
-                user: user,
-                title: 'Home / Twitter' });
+            Follow.doIFollow(req.user.id, req.body.follow, (doIFollow) => {
+                res.render('home', { 
+                    username: req.user.username,
+                    tweet: tweet,
+                    user: user,
+                    doIFollow: doIFollow,
+                    title: 'Home / Twitter' });
+            });
         });
     });
 };
@@ -35,20 +39,13 @@ exports.newTweet = (req, res) => {
 };
 
 exports.follow = (req, res) => {
-    User.follow(req.user.id, req.params.id, () => {
+    Follow.follow(req.user.id, req.body.follow[0], () => {
         res.redirect('/home');
-    });
-};
-
-exports.doIFollow = (req, res) => {
-    User.doIFollow(req.user.id, req.body.id, () => {
-
     });
 };
 
 exports.unfollow = (req, res) => {
-    User.unfollow(req.user.id, req.params.id, () => {
+    Follow.unfollow(req.user.id, req.body.unfollow, () => {
         res.redirect('/home');
-    })
-}
-
+    });
+};

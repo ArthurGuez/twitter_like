@@ -11,7 +11,7 @@ const checkAuth = require('../server');
 // Routes
 router.get('/signup', checkAuth.checkNotAuthenticated, signUpController.getPage);
 
-router.get('*', signUpController.error);
+// router.get('*', signUpController.error);
 
 router.post('/signup', signUpController.signUp);
 
